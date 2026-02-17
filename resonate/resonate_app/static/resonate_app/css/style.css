@@ -1,0 +1,78 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #1DB954;
+}
+
+.btn-success {
+    background-color: #1DB954;
+    border-color: #1DB954;
+}
+
+.btn-success:hover {
+    background-color: #1aa34a;
+    border-color: #1aa34a;
+}
+
+.bg-success {
+    background-color: #1DB954 !important;
+}
+
+.list-group-item.active {
+    background-color: #1DB954;
+    border-color: #1DB954;
+}
+
+.track-item, .artist-item {
+    transition: transform 0.2s;
+}
+
+.track-item:hover, .artist-item:hover {
+    transform: translateX(10px);
+}
+
+.badge.bg-success {
+    background-color: #1DB954 !important;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.navbar-dark .navbar-brand {
+    color: #1DB954;
+}
+
+.navbar-dark .navbar-brand:hover {
+    color: #1aa34a;
+}
+
+.display-4 {
+    color: #1DB954;
+    font-weight: bold;
+}
+
+/* Chart container styles */
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 400px;
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2.5rem;
+    }
+}

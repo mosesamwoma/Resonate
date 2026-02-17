@@ -1,0 +1,119 @@
+{% extends 'resonate_app/base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active">{{ month_name }} {{ year }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+{% if summary %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h2>{{ month_name }} {{ year }} Wrapped</h2>
+            </div>
+            <div class="card-body">
+                <div class="row text-center mb-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ summary.total_plays }}</h1>
+                                <p class="lead">Total Plays</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ summary.unique_tracks }}</h1>
+                                <p class="lead">Unique Tracks</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ summary.unique_artists }}</h1>
+                                <p class="lead">Unique Artists</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Top Tracks</h3>
+                        <div class="list-group">
+                            {% for track in summary.top_tracks %}
+                            <div class="list-group-item track-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ forloop.counter }}. {{ track.name }}</h6>
+                                        <small class="text-muted">{{ track.artist }}</small>
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">{{ track.plays }} plays</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h3>Top Artists</h3>
+                        <div class="list-group">
+                            {% for artist in summary.top_artists %}
+                            <div class="list-group-item artist-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ forloop.counter }}. {{ artist.name }}</h6>
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">{{ artist.plays }} plays</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                {% if weeks %}
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <h3>Weekly Breakdown</h3>
+                        <div class="list-group">
+                            {% for week in weeks %}
+                            <a href="{% url 'weekly_wrapped' year month week.week %}" class="list-group-item list-group-item-action">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">Week {{ week.week }}</h6>
+                                        <small>{{ week.total_plays }} plays • {{ week.unique_tracks }} tracks</small>
+                                    </div>
+                                    <i class="bi bi-chevron-right"></i>
+                                </div>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    <h4 class="alert-heading">No Data Available</h4>
+    <p>No listening data available for {{ month_name }} {{ year }}. Try fetching more tracks!</p>
+    <hr>
+    <a href="{% url 'fetch_tracks' %}" class="btn btn-success">
+        <i class="bi bi-cloud-download"></i> Fetch Tracks Now
+    </a>
+</div>
+{% endif %}
+{% endblock %}

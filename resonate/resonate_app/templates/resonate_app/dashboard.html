@@ -1,0 +1,112 @@
+{% extends 'resonate_app/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">Welcome to Resonate</h2>
+                <p class="card-text">
+                    Track your Spotify listening habits monthly and weekly, just like Spotify Wrapped but more frequently!
+                </p>
+                <a href="{% url 'fetch_tracks' %}" class="btn btn-success">
+                    <i class="bi bi-cloud-download"></i> Fetch Latest Tracks
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if current_month_data %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h3>Current Month Summary - {{ current_date|date:"F Y" }}</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <h1 class="display-4">{{ current_month_data.total_plays }}</h1>
+                            <p class="lead">Total Plays</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <h1 class="display-4">{{ current_month_data.unique_tracks }}</h1>
+                            <p class="lead">Unique Tracks</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <h1 class="display-4">{{ current_month_data.unique_artists }}</h1>
+                            <p class="lead">Unique Artists</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{% url 'monthly_wrapped' current_date.year current_date.month %}" class="btn btn-outline-success">
+                        View Full Monthly Wrapped
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Previous Months</h4>
+            </div>
+            <div class="card-body">
+                {% if months %}
+                <div class="list-group">
+                    {% for year, month in months %}
+                    <a href="{% url 'monthly_wrapped' year month|slice:'5:' %}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-calendar-month"></i> {{ month }}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">No historical data yet. Click "Fetch Latest Tracks" to start collecting!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Quick Stats</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Total Tracks Collected
+                        <span class="badge bg-success rounded-pill">{{ user.tracks.count }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        First Track Date
+                        <span class="badge bg-success rounded-pill">
+                            {% with first=user.tracks.last %}
+                                {% if first %}{{ first.played_at|date:"M d, Y" }}{% else %}N/A{% endif %}
+                            {% endwith %}
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Last Track Date
+                        <span class="badge bg-success rounded-pill">
+                            {% with last=user.tracks.first %}
+                                {% if last %}{{ last.played_at|date:"M d, Y" }}{% else %}N/A{% endif %}
+                            {% endwith %}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'resonate_app/base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'monthly_wrapped' year month %}">{{ month_name }} {{ year }}</a></li>
+                <li class="breadcrumb-item active">Week {{ week }}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+{% if summary %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h2>{{ month_name }} {{ year }} - Week {{ week }}</h2>
+            </div>
+            <div class="card-body">
+                <div class="row text-center mb-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ summary.total_plays }}</h1>
+                                <p class="lead">Total Plays</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ summary.unique_tracks }}</h1>
+                                <p class="lead">Unique Tracks</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ summary.unique_artists }}</h1>
+                                <p class="lead">Unique Artists</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Top Tracks - Week {{ week }}</h3>
+                        <div class="list-group">
+                            {% for track in summary.top_tracks %}
+                            <div class="list-group-item track-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ forloop.counter }}. {{ track.name }}</h6>
+                                        <small class="text-muted">{{ track.artist }}</small>
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">{{ track.plays }} plays</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h3>Top Artists - Week {{ week }}</h3>
+                        <div class="list-group">
+                            {% for artist in summary.top_artists %}
+                            <div class="list-group-item artist-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ forloop.counter }}. {{ artist.name }}</h6>
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">{{ artist.plays }} plays</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    <h4 class="alert-heading">No Data Available</h4>
+    <p>No listening data available for Week {{ week }} of {{ month_name }} {{ year }}.</p>
+    <hr>
+    <a href="{% url 'fetch_tracks' %}" class="btn btn-success">
+        <i class="bi bi-cloud-download"></i> Fetch Tracks Now
+    </a>
+</div>
+{% endif %}
+{% endblock %}
