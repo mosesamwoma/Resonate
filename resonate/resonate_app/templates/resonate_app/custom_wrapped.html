@@ -1,0 +1,99 @@
+<!-- resonate_app/templates/resonate_app/custom_wrapped.html -->
+
+{% extends 'resonate_app/base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li class="breadcrumb-item active">Custom Wrapped</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h2>Your Custom Wrapped</h2>
+                <p class="mb-0">{{ start_date }} to {{ end_date }}</p>
+            </div>
+            <div class="card-body">
+                <div class="row text-center mb-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ total_plays }}</h1>
+                                <p class="lead">Total Plays</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ unique_tracks }}</h1>
+                                <p class="lead">Unique Tracks</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h1 class="display-4">{{ unique_artists }}</h1>
+                                <p class="lead">Unique Artists</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Top Tracks</h3>
+                        <div class="list-group">
+                            {% for track in top_tracks %}
+                            <div class="list-group-item track-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ forloop.counter }}. {{ track.name }}</h6>
+                                        <small class="text-muted">{{ track.artist }}</small>
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">{{ track.plays }} plays</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h3>Top Artists</h3>
+                        <div class="list-group">
+                            {% for artist in top_artists %}
+                            <div class="list-group-item artist-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ forloop.counter }}. {{ artist.name }}</h6>
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">{{ artist.plays }} plays</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button onclick="window.print()" class="btn btn-outline-success">
+                        <i class="bi bi-printer"></i> Print/Save
+                    </button>
+                    <a href="{% url 'custom_wrapped' %}" class="btn btn-success">
+                        <i class="bi bi-calendar-range"></i> Create Another
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
