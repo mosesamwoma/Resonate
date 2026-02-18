@@ -1,0 +1,71 @@
+<!-- resonate_app/templates/resonate_app/date_range.html -->
+
+{% extends 'resonate_app/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h2>{% if custom_wrapped %}Create Custom Wrapped{% else %}Fetch Tracks by Date Range{% endif %}</h2>
+            </div>
+            <div class="card-body">
+                <form method="post" action="{% if custom_wrapped %}{% url 'custom_wrapped' %}{% else %}{% url 'date_range' %}{% endif %}">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="start_date" class="form-label">Start Date</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" 
+                               max="{{ today }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="end_date" class="form-label">End Date</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" 
+                               max="{{ today }}" required>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i>
+                        {% if custom_wrapped %}
+                        Generate a custom Wrapped report for any date range you choose.
+                        {% else %}
+                        Fetch all tracks played between the selected dates. This might take a few moments.
+                        {% endif %}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success">
+                        {% if custom_wrapped %}
+                        <i class="bi bi-magic"></i> Generate Custom Wrapped
+                        {% else %}
+                        <i class="bi bi-cloud-download"></i> Fetch Tracks
+                        {% endif %}
+                    </button>
+                    
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4>Quick Date Ranges</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{% url 'fetch_tracks' %}?type=recent" class="btn btn-outline-success w-100 mb-2">
+                            <i class="bi bi-clock-history"></i> Recent (Last 500 tracks)
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{% url 'fetch_tracks' %}?type=full_history" class="btn btn-outline-success w-100 mb-2">
+                            <i class="bi bi-collection"></i> Full History (Up to 5000)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
