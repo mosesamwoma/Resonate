@@ -1,0 +1,88 @@
+/* 🌌 Gradient Background */
+html, body, [class*="css"]  {
+    background: linear-gradient(135deg, #0f172a 0%, #0e1117 100%);
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Hide Streamlit header & footer */
+header {visibility: hidden;}
+footer {visibility: hidden;}
+
+/* Main container spacing */
+.block-container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    max-width: 1200px;
+}
+
+/* Main Title */
+h1 {
+    color: #1DB954;
+    font-weight: 900;
+    font-size: 3.2rem;
+    letter-spacing: 1px;
+}
+
+/* Section Titles */
+h2, h3 {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* 🎧 Metric Cards - Glass Effect */
+[data-testid="metric-container"] {
+    background: rgba(30, 30, 47, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 18px;
+    border: 1px solid rgba(29, 185, 84, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-testid="metric-container"]:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(29, 185, 84, 0.3);
+}
+
+/* Metric Labels */
+[data-testid="metric-container"] label {
+    color: #b0b3b8;
+    font-weight: 500;
+}
+
+/* Sidebar Styling */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #111827 0%, #0f172a 100%);
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Sidebar Text */
+section[data-testid="stSidebar"] * {
+    color: #e5e7eb;
+}
+
+/* Buttons */
+.stButton>button {
+    background: linear-gradient(135deg, #1DB954, #17a74a);
+    color: white;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.stButton>button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(29, 185, 84, 0.5);
+}
+
+/* Plotly Chart Container */
+.element-container:has(.js-plotly-plot) {
+    background: rgba(20, 20, 30, 0.6);
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 30px;
+}
