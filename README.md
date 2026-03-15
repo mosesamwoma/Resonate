@@ -94,7 +94,7 @@ Opens at `http://127.0.0.1:8000`
 
 ### Option B — Streamlit Dashboard
 
-![Streamlit Interface](screenshorts\2.jpeg)
+![Streamlit Interface](screenshorts/2.jpeg)
 
 Before running, create the secrets file at `resonate/streamlit_version/.streamlit/secrets.toml`:
 ```toml
