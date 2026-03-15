@@ -22,7 +22,7 @@ Resonate fetches your Spotify listening history, stores it in PostgreSQL and ser
 - Python 3.11+
 - Django (web version)
 - Streamlit (dashboard version)
-- PostgreSQL / SQLAlchemy
+- PostgreSQL
 - Pandas, Plotly
 - Spotipy / Requests (Spotify API)
 - python-dotenv
