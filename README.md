@@ -8,24 +8,12 @@ Resonate fetches your Spotify listening history, stores it in PostgreSQL and ser
 
 ## Features
 
-- Spotify Login via OAuth 2.0
-- **Monthly Wrapped** — top tracks & artists per calendar month
-- **Weekly Wrapped** — weekly breakdowns within any selected month
-- Interactive charts built with Plotly
-- PostgreSQL for persistent historical tracking
-- Long-term trend monitoring
-
----
-
-## Tech Stack
-
-- Python 3.11+
-- Django (web version)
-- Streamlit (dashboard version)
-- PostgreSQL
-- Pandas, Plotly
-- Spotipy / Requests (Spotify API)
-- python-dotenv
+-  Spotify Login via OAuth 2.0
+-  **Monthly Wrapped** — top tracks & artists per calendar month
+-  **Weekly Wrapped** — weekly breakdowns within any selected month
+-  Interactive charts built with Plotly
+-  PostgreSQL for persistent historical tracking
+-  Long-term trend monitoring
 
 ---
 
@@ -37,12 +25,20 @@ git clone https://github.com/mosesamwoma/Resonate.git
 cd Resonate
 ```
 
-### 2. Install dependencies
+### 2. Create and activate a virtual environment
+
+**Windows:**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Configure environment variables
+### 4. Configure environment variables
 
 Create a `.env` file in the root directory:
 ```env
@@ -52,7 +48,7 @@ REDIRECT_URI=http://localhost:8501
 DATABASE_URL=postgres://resonate_user:yourpassword@localhost:5432/resonate_db
 ```
 
-### 4. Set up PostgreSQL
+### 5. Set up PostgreSQL
 
 **Install:**
 - Download and install PostgreSQL from [postgresql.org](https://www.postgresql.org/download/) — pgAdmin is bundled in the installer
@@ -72,7 +68,7 @@ DATABASE_URL=postgres://resonate_user:yourpassword@localhost:5432/resonate_db
 **Set ownership:**
 - Right-click `resonate_db` → **Properties** → **General** tab → set **Owner** to `resonate_user` → click **Save**
 
-### 5. Apply Django migrations (web version only)
+### 6. Apply Django migrations (web version only)
 ```bash
 python manage.py migrate
 ```
