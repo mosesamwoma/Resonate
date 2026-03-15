@@ -1,1 +1,146 @@
-# Resonate
+# Resonate 
+
+A personal Spotify analytics app that gives you **Monthly & Weekly Wrapped** — without waiting for December.
+
+Resonate fetches your Spotify listening history, stores it in PostgreSQL and serves interactive dashboards. Choose between a **Django web app** or a **Streamlit dashboard** — they run independently.
+
+---
+
+## Features
+
+- Spotify Login via OAuth 2.0
+- **Monthly Wrapped** — top tracks & artists per calendar month
+- **Weekly Wrapped** — weekly breakdowns within any selected month
+- Interactive charts built with Plotly
+- PostgreSQL for persistent historical tracking
+- Long-term trend monitoring
+
+---
+
+## Tech Stack
+
+- Python 3.11+
+- Django (web version)
+- Streamlit (dashboard version)
+- PostgreSQL / SQLAlchemy
+- Pandas, Plotly
+- Spotipy / Requests (Spotify API)
+- python-dotenv
+
+---
+
+## Setup
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/mosesamwoma/Resonate.git
+cd Resonate
+```
+
+### 2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Configure environment variables
+
+Create a `.env` file in the root directory:
+```env
+CLIENT_ID=<your_spotify_client_id>
+CLIENT_SECRET=<your_spotify_client_secret>
+REDIRECT_URI=http://localhost:8501
+DATABASE_URL=postgres://resonate_user:yourpassword@localhost:5432/resonate_db
+```
+
+### 4. Set up PostgreSQL
+
+**Install:**
+- Download and install PostgreSQL from [postgresql.org](https://www.postgresql.org/download/) — pgAdmin is bundled in the installer
+- During installation, set a password for the `postgres` superuser and keep it
+
+**Create the database in pgAdmin:**
+- Open pgAdmin → log in with your `postgres` password
+- Left panel: **Servers** → **PostgreSQL** → right-click **Databases** → **Create** → **Database**
+- Set **Database name**: `resonate_db` → click **Save**
+
+**Create a user:**
+- Right-click **Login/Group Roles** → **Create** → **Login/Group Role**
+- **General** tab → Name: `resonate_user`
+- **Definition** tab → set a password
+- **Privileges** tab → enable **Can login** and **Superuser** → click **Save**
+
+**Set ownership:**
+- Right-click `resonate_db` → **Properties** → **General** tab → set **Owner** to `resonate_user` → click **Save**
+
+### 5. Apply Django migrations (web version only)
+```bash
+python manage.py migrate
+```
+
+---
+
+## Running the App
+
+Pick **one** — web and Streamlit run independently, not simultaneously.
+
+---
+
+### Option A — Django Web App
+
+![Web Interface](screenshorts/1.jpeg)
+```bash
+python manage.py runserver
+```
+
+Opens at `http://127.0.0.1:8000`
+
+---
+
+### Option B — Streamlit Dashboard
+
+![Streamlit Interface](screenshorts/2.jpeg)
+
+Before running, create the secrets file at `resonate/streamlit_version/.streamlit/secrets.toml`:
+```toml
+SPOTIPY_CLIENT_ID = "your_spotify_client_id"
+SPOTIPY_CLIENT_SECRET = "your_spotify_client_secret"
+SPOTIPY_REDIRECT_URI = "http://localhost:8501"
+```
+
+Then run:
+```bash
+cd resonate/streamlit_version
+streamlit run resonate.py
+```
+
+Opens at `http://localhost:8501`
+
+---
+
+## Usage
+
+1. Open the app in your browser
+2. Click **Login with Spotify**
+3. Select a month to view your **Monthly Wrapped**
+4. Optionally select a week for **Weekly Wrapped**
+5. Data is saved to PostgreSQL for historical analysis
+
+---
+
+## Limitations
+
+| Limitation | Workaround |
+|---|---|
+| Spotify API returns last 50 tracks only | Schedule daily fetches; persist all to PostgreSQL |
+| No retroactive history | Start collecting now; optionally import CSV exports |
+| API rate limits | Batch requests; retry on error |
+
+---
+
+## Future Enhancements
+
+- Trend charts across multiple months
+- Downloadable PDF Wrapped reports
+- Daily scheduled data collection
+- Heatmaps and shareable Wrapped images
+- Playlist export
