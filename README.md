@@ -1,5 +1,4 @@
 # Resonate 
-
 A personal Spotify analytics app that gives you **Monthly & Weekly Wrapped** — without waiting for December.
 
 Resonate fetches your Spotify listening history, stores it in PostgreSQL and serves interactive dashboards. Choose between a **Django web app** or a **Streamlit dashboard** — they run independently.
@@ -8,12 +7,12 @@ Resonate fetches your Spotify listening history, stores it in PostgreSQL and ser
 
 ## Features
 
--  Spotify Login via OAuth 2.0
--  **Monthly Wrapped** — top tracks & artists per calendar month
--  **Weekly Wrapped** — weekly breakdowns within any selected month
--  Interactive charts built with Plotly
--  PostgreSQL for persistent historical tracking
--  Long-term trend monitoring
+- Spotify Login via OAuth 2.0
+- **Monthly Wrapped** — top tracks & artists per calendar month
+- **Weekly Wrapped** — weekly breakdowns within any selected month
+- Interactive charts built with Plotly
+- PostgreSQL for persistent historical tracking
+- Long-term trend monitoring
 
 ---
 
@@ -33,12 +32,20 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
+**macOS/Linux:**
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
 ### 3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 4. Configure environment variables
+
+Get your Spotify API credentials at [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
 
 Create a `.env` file in the root directory:
 ```env
@@ -96,6 +103,8 @@ Opens at `http://127.0.0.1:8000`
 
 ![Streamlit Interface](screenshorts/2.jpeg)
 
+Get your Spotify API credentials at [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
+
 Before running, create the secrets file at `resonate/streamlit_version/.streamlit/secrets.toml`:
 ```toml
 SPOTIPY_CLIENT_ID = "your_spotify_client_id"
@@ -140,3 +149,5 @@ Opens at `http://localhost:8501`
 - Daily scheduled data collection
 - Heatmaps and shareable Wrapped images
 - Playlist export
+
+---
