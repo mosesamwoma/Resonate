@@ -90,7 +90,7 @@ Pick **one** — web and Streamlit run independently, not simultaneously.
 
 ### Option A — Django Web App
 
-![Web Interface](screenshorts/1.jpeg)
+![Web Interface](assets/1.jpeg)
 ```bash
 python manage.py runserver
 ```
@@ -101,7 +101,7 @@ Opens at `http://127.0.0.1:8000`
 
 ### Option B — Streamlit Dashboard
 
-![Streamlit Interface](screenshorts/2.jpeg)
+![Streamlit Interface](assets/2.jpeg)
 
 Get your Spotify API credentials at [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
 
