@@ -149,5 +149,6 @@ Opens at `http://localhost:8501`
 - Daily scheduled data collection
 - Heatmaps and shareable Wrapped images
 - Playlist export
+- Deveope resonate mobile app
 
 ---
