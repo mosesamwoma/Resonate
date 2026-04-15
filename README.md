@@ -118,6 +118,6 @@ Contributions are welcome! To contribute:
 4. Push to the branch: `git push origin feature/your-feature-name`
 5. Open a Pull Request
 
-Please ensure your code follows the existing style and includes tests where applicable.
+Please ensure your code follows the existing style
 ---
 **Built with Python, Django, Streamlit, PostgreSQL & Plotly**
